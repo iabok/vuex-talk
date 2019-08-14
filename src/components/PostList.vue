@@ -23,11 +23,7 @@
         </tbody>
       </table>
     </div>
-    <post-details
-      :showModal="showModal"
-      :post="selectedPost"
-      @modalClose="resetModal"
-    />
+    <post-details />
   </div>
 </template>
 
@@ -39,12 +35,6 @@ export default {
   components: {
     PostDetails,
   },
-  data() {
-    return {
-      showModal: false,
-      selectedPost: {},
-    };
-  },
   created() {
     this.$store.dispatch('getPostsData');
   },
@@ -52,17 +42,10 @@ export default {
     ...mapGetters([
       'getPosts',
     ]),
-    isBusy() {
-      return this.getPosts.length === 0;
-    },
   },
   methods: {
     showDetails(post) {
-      this.showModal = !this.showModal;
-      this.selectedPost = post;
-    },
-    resetModal(status) {
-      this.showModal = status;
+      this.$store.dispatch('updatePost', post);
     },
   },
 };
