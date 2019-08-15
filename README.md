@@ -2,7 +2,9 @@
 
 ## Project setup
 ```
-npm install
+$ git clone git@github.com:iabok/vuex-talk.git
+$ cd vuex-talk
+$ npm install
 ```
 
 ### Compiles and hot-reloads for development
