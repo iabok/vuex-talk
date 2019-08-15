@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import PostDetails from './PostDetails.vue';
+import BASE_URL from './../config'
 
 export default {
   components: {
@@ -43,20 +43,29 @@ export default {
     return {
       showModal: false,
       selectedPost: {},
+      allPosts: [],
     };
   },
   created() {
-    this.$store.dispatch('getPostsData');
+    this.getPostsData();
   },
   computed: {
-    ...mapGetters([
-      'getPosts',
-    ]),
-    isBusy() {
-      return this.getPosts.length === 0;
+    getPosts() {
+      return this.allPosts;
     },
   },
   methods: {
+    async getPostsData() {
+      try {
+        const response = await fetch(`${BASE_URL}/posts/`);
+        const result = await response.json();
+        if (response.status === 200) {
+          this.allPosts = result;
+        }
+      } catch (errors) {
+        throw Error(errors);
+      }
+    },
     showDetails(post) {
       this.showModal = !this.showModal;
       this.selectedPost = post;
