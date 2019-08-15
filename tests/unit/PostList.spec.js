@@ -46,7 +46,6 @@ describe('PostList.vue', () => {
   });
 
   it('renders the list of posts', () => {
-    console.log(PostList.computed.getPosts());
     expect(typeof PostList.computed.getPosts).toBe('function');
     expect(getters.getPosts).toHaveBeenCalled();
     expect(getters.getPosts().length).toBe(3);
