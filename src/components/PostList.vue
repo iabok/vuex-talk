@@ -23,55 +23,28 @@
         </tbody>
       </table>
     </div>
-    <post-details
-      :showModal="showModal"
-      :post="selectedPost"
-      @modalClose="resetModal"
-    />
+    <post-details />
   </div>
 </template>
 
 <script>
 import PostDetails from './PostDetails.vue';
-import BASE_URL from '../config';
 
 export default {
   components: {
     PostDetails,
   },
-  data() {
-    return {
-      showModal: false,
-      selectedPost: {},
-      allPosts: [],
-    };
-  },
   created() {
-    this.getPostsData();
+    this.$store.dispatch('getPostsData');
   },
   computed: {
     getPosts() {
-      return this.allPosts;
+      return this.$store.getters.getPosts;
     },
   },
   methods: {
-    async getPostsData() {
-      try {
-        const response = await fetch(`${BASE_URL}/posts/`);
-        const result = await response.json();
-        if (response.status === 200) {
-          this.allPosts = result;
-        }
-      } catch (errors) {
-        throw Error(errors);
-      }
-    },
     showDetails(post) {
-      this.showModal = !this.showModal;
-      this.selectedPost = post;
-    },
-    resetModal(status) {
-      this.showModal = status;
+      this.$store.dispatch('updatePost', post);
     },
   },
 };

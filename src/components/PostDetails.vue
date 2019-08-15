@@ -1,5 +1,5 @@
 <template>
-  <modal v-if="show" @close="closeModal">
+  <modal v-if="showModal" @close="closeModal">
     <h3 slot="header">Post Details</h3>
     <div slot="body">
       <div>
@@ -17,30 +17,17 @@ export default {
   components: {
     Modal,
   },
-  props: {
-    post: {
-      type: Object,
-      required: true,
+  computed: {
+    post() {
+      return this.$store.getters.getSelectedPost;
     },
-    showModal: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      show: false,
-    };
-  },
-  watch: {
     showModal() {
-      this.show = this.showModal;
+      return this.$store.getters.showModal;
     },
   },
   methods: {
     closeModal() {
-      this.show = !this.show;
-      this.$emit('modalClose', this.show);
+      this.$store.commit('SHOW_MODAL', false);
     },
   },
 };
