@@ -33,7 +33,7 @@
 
 <script>
 import PostDetails from './PostDetails.vue';
-import BASE_URL from './../config'
+import BASE_URL from '../config';
 
 export default {
   components: {
