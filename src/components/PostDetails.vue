@@ -3,14 +3,13 @@
     <h3 slot="header">Post Details</h3>
     <div slot="body">
       <div>
-        <span><strong>Title:</strong></span>&nbsp;{{ getSelectedPost.title }}
+        <span><strong>Title:</strong></span>&nbsp;{{ post.title }}
       </div><br>
-      <div><strong>Body:</strong>&nbsp;{{ getSelectedPost.body }}</div>
+      <div><strong>Body:</strong>&nbsp;{{ post.body }}</div>
     </div>
   </modal>
 </template>
 <script>
-import { mapGetters } from 'vuex';
 import Modal from './Modal.vue';
 
 export default {
@@ -19,10 +18,12 @@ export default {
     Modal,
   },
   computed: {
-    ...mapGetters([
-      'getSelectedPost',
-      'showModal',
-    ]),
+    post() {
+      return this.$store.getters.getSelectedPost;
+    },
+    showModal() {
+      return this.$store.getters.showModal;
+    },
   },
   methods: {
     closeModal() {

@@ -29,48 +29,20 @@
 
 <script>
 import PostDetails from './PostDetails.vue';
-import BASE_URL from './../config'
 
 export default {
   components: {
     PostDetails,
   },
-<<<<<<< HEAD
-=======
-  data() {
-    return {
-      showModal: false,
-      selectedPost: {},
-      allPosts: [],
-    };
-  },
->>>>>>> 5d4899f6755d63abcfa84ed16c52cc5d4c37e32c
   created() {
-    this.getPostsData();
+    this.$store.dispatch('getPostsData');
   },
   computed: {
-<<<<<<< HEAD
-    ...mapGetters([
-      'getPosts',
-    ]),
-=======
     getPosts() {
-      return this.allPosts;
+      return this.$store.getters.getPosts;
     },
->>>>>>> 5d4899f6755d63abcfa84ed16c52cc5d4c37e32c
   },
   methods: {
-    async getPostsData() {
-      try {
-        const response = await fetch(`${BASE_URL}/posts/`);
-        const result = await response.json();
-        if (response.status === 200) {
-          this.allPosts = result;
-        }
-      } catch (errors) {
-        throw Error(errors);
-      }
-    },
     showDetails(post) {
       this.$store.dispatch('updatePost', post);
     },
